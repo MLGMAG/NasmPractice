@@ -1,9 +1,9 @@
 %include	'functions.asm'
 
 section .data
-msg1	db	'Hello World1!', 0Ah
-msg2	db	'Hello World2!', 0Ah
-msg3	db	'Hello World3!', 0Ah
+msg1	db	'Hello World1!', 0Ah, 0h
+msg2	db	'Hello World2!', 0Ah, 0h
+msg3	db	'Hello World3!', 0Ah, 0h
 
 section .text
 global _start
