@@ -6,9 +6,10 @@ global _start
 
 _start:
 
-	mov edx, 13
-	mov ecx, msg
-	mov ebx, 1
-	mov eax, 4
-	int 80h
-
+	;print Hello World
+	mov edx, 13 	; Message size? 13
+	mov ecx, msg 	; What to print? msg
+	mov ebx, 1 	; Where to print? STDOUT
+	mov eax, 4	; OPCODE? sys_write (32 bit)
+	int 80h		; System interupt
+	
