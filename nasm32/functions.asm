@@ -49,6 +49,25 @@ sprintLF:			; Print message with line feed
 	ret
 	
 
+sread:				; Read user input: sread(eax buffer)
+	push	eax
+	push	ebx
+	push	ecx
+	push	edx
+
+	mov	edx, 255
+	mov	ecx, eax
+	mov	ebx, 0
+	mov	eax, 3
+	int	80h
+
+	pop	edx
+	pop	ecx
+	pop	ebx
+	pop	eax
+	ret
+
+
 quit:
 	mov	ebx, 0
 	mov	eax, 1
