@@ -35,6 +35,20 @@ sprint:
 	pop	edx
 	ret
 
+
+sprintLF:			; Print message with line feed
+	call	sprint
+
+	push	eax
+	mov	eax, 0Ah
+	push	eax
+	mov	eax, esp
+	call	sprint
+	pop	eax
+	pop	eax
+	ret
+	
+
 quit:
 	mov	ebx, 0
 	mov	eax, 1
