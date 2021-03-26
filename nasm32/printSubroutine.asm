@@ -5,7 +5,6 @@ section .text
 global _start
 
 _start:
-
 	mov 	eax, msg	; copy msg first byte address
 
 	call 	strlen		; calculate string length
@@ -28,13 +27,13 @@ strlen:				; Begin
 	push 	ebx
 	mov 	ebx, eax
 
-nextchar:
+.nextchar:
 	cmp 	byte [eax], 0
-	jz 	finish
+	jz 	.finish
 	inc 	eax
-	jmp 	nextchar
+	jmp 	.nextchar
 
-finish:
+.finish:
 	sub 	eax, ebx
 	pop	ebx
 	ret			; End

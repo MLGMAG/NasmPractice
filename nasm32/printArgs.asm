@@ -4,17 +4,16 @@ section .text
 global _start
 
 _start:
-	
 	pop	ecx
 	
 getArg:
 	cmp	ecx, 0h
-	jz	noMoreArgs
+	jz	.noMoreArgs
 	pop	eax
 	call	sprintLF
 	dec	ecx
-	jmp	getArg
+	jmp	.getArg
 
-noMoreArgs:
+.noMoreArgs:
 	call	quit	
 

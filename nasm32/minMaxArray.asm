@@ -29,7 +29,7 @@ _start:
 	; calculate min
 	mov	eax, array
 	mov	ebx, arraySize 
-	call findMinElem
+	call	findMinElem
 	mov	[minElem], eax
 
 	; print minElemMsg

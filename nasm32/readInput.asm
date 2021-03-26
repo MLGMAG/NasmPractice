@@ -23,5 +23,5 @@ _start:
 	mov	eax, userInput
 	call	sprint
 
-	call quit
+	call	quit
 
