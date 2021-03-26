@@ -1,4 +1,4 @@
-iprint:
+iprint:				; Print integer: iprint(eax number)
 	push    eax            
 	push    ecx             
 	push    edx             
@@ -30,7 +30,7 @@ iprint:
 	ret
  
  
-iprintLF:
+iprintLF:			; Print integer with line feed: iprintLF(eax number)
 	call    iprint          
 	
 	push    eax            
@@ -43,7 +43,7 @@ iprintLF:
 	ret
 
 
-slen:				; Calculate string length: slen(eax) 
+slen:				; Calculate string length: slen(eax string) 
 	push	ebx
 	mov	ebx, eax
 
@@ -59,7 +59,7 @@ slen:				; Calculate string length: slen(eax)
 	ret
 
 
-sprint:
+sprint:				; Print sprint: sprint(eax string)
 	push	edx
 	push	ecx
 	push	ebx
@@ -81,7 +81,7 @@ sprint:
 	ret
 
 
-sprintLF:			; Print message with line feed
+sprintLF:			; Print message with line feed: sprintLF(eax string)
 	call	sprint
 
 	push	eax
