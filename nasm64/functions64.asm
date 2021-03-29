@@ -48,10 +48,29 @@ sprintLF:			; Print message with line feed: sprintLF(eax string)
 	pop	rax
 	ret
 
+
+sread:				; Read user input: sread(eax buffer)
+	push	rax
+	push	rdi
+	push	rsi
+	push	rdx
+
+	mov	rdx, 255
+	mov	rsi, rax
+	mov	rdi, 0
+	mov	rax, 0
+	syscall
+
+	pop	rdx
+	pop	rsi
+	pop	rdi
+	pop	rax
+	ret
+
+
 quit:
 	mov	ebx, 0
 	mov	eax, 60
 	syscall
 	ret
-
 
