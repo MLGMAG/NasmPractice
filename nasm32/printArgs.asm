@@ -6,7 +6,7 @@ global _start
 _start:
 	pop	ecx
 	
-getArg:
+.getArg:
 	cmp	ecx, 0h
 	jz	.noMoreArgs
 	pop	eax
