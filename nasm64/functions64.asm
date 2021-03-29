@@ -1,3 +1,48 @@
+iprint:				; Print integer: iprint(eax number)
+	push    rax            
+	push    rsi             
+	push    rdx             
+	push	r10             
+	mov     rsi, 0          
+ 
+.divideLoop:
+	inc     rsi             
+	mov     rdx, 0          
+	mov     r10, 10         
+	idiv    r10             
+	add     rdx, 48         
+	push    rdx             
+	cmp     rax, 0          
+	jnz     .divideLoop      
+ 
+.printLoop:
+	dec     rsi             
+	mov     rax, rsp        
+	call    sprint          
+	pop     rax             
+	cmp     rsi, 0          
+	jnz     .printLoop       
+	
+	pop     r10             
+	pop     rdx             
+	pop     rsi             
+	pop     rax             
+	ret
+ 
+ 
+iprintLF:			; Print integer with line feed: iprintLF(eax number)
+	call    iprint          
+	
+	push    rax            
+	mov     rax, 0Ah      
+	push    rax            
+	mov     rax, rsp        
+	call    sprint          
+	pop     rax             
+	pop     rax             
+	ret
+
+
 slen:				; Calculate string length: slen(rax *string) 
 	push	rdi
 	mov	rdi, rax
@@ -66,6 +111,64 @@ sread:				; Read user input: sread(eax buffer)
 	pop	rdi
 	pop	rax
 	ret
+
+
+findMinElem:			; Find min element in array: findMinElem(eax arr, ebx arr_size)
+	push	rdi
+	push	rsi
+	push	rdx
+	push	r10
+
+	mov	rsi, 0
+	mov	r10, [rax]
+	
+.findMinElemLoop:
+        inc     rsi
+	cmp     rsi, rdi
+        jz      .finish
+        mov     rdx, [rax+rsi*8]
+        cmp     r10, rdx
+        jl      .findMinElemLoop
+        mov     r10, rdx
+        jmp     .findMinElemLoop
+
+.finish:
+	mov	rax, r10
+
+	pop	r10
+	pop	rdx
+	pop	rsi
+	pop	rdi
+	ret
+
+
+findMaxElem:                    ; Find max element in array: findMaxElem(eax arr, ebx arr_size)
+        push    rdi
+        push    rsi
+        push    rdx
+	push	r10
+
+	mov	rsi, 0
+	mov	r10, [rax]
+
+.findMaxElemLoop:
+        inc     rsi
+        cmp     rsi, rdi
+        jz      .finish
+        mov     rdx, [rax+rsi*8]
+        cmp     r10, rdx
+        jg      .findMaxElemLoop
+        mov     r10, rdx
+        jmp     .findMaxElemLoop
+
+.finish:
+	mov	rax, r10
+
+	pop	r10
+        pop     rdx
+        pop     rsi
+        pop     rdi
+        ret
 
 
 quit:
