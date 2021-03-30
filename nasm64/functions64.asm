@@ -83,6 +83,48 @@ printArray:			; Print array: printArray(rax array, rdi arraySize)
 	ret		
 
 
+rightShiftArray:		; Shift array right by 1 cell: rightShiftArray(rax, array, wrdi, arraySize)
+	push	rax
+	push	rdi
+	push	rcx
+	push	rdx
+
+	dec	rdi
+	mov	rcx, rdi
+	
+.pushDataIntoStack:
+	cmp	rcx, 0
+	jz	.stackFinish
+	mov	rdx, [rax+rcx*8]
+	push	rdx
+	dec	rcx
+	jmp	.pushDataIntoStack
+
+.stackFinish:
+	mov	rdx, [rax+rcx*8]
+	push	rdx
+	mov	rcx, 1
+	inc	rdi
+		
+.popDataFromStack:
+	cmp	rcx, rdi
+	jz	.finish
+	pop	rdx
+	mov	[rax+rcx*8], rdx
+	inc	rcx
+	jmp	.popDataFromStack
+
+.finish:	
+	pop	rdx
+	mov	[rax], rdx
+	
+	pop	rdx
+	pop	rcx
+	pop	rdi
+	pop	rax
+	ret
+
+
 slen:				; Calculate string length: slen(rax *string) 
 	push	rdi
 	mov	rdi, rax
