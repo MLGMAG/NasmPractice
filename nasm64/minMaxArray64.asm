@@ -6,6 +6,7 @@ arraySize	equ	($ - array) / 8
 minElem		dq	0h
 maxElem		dq	0h
 sum		dq	0h
+arrayMsg	db	'Array: ', 0h
 sizeMsg		db	'Array size is ', 0h
 findElementsMsg	db	'Finding max and min elements in array...', 0h
 minElemMsg	db	'Min element is ', 0h
@@ -16,6 +17,16 @@ section .text
 global _start
 
 _start:
+	
+	; print array
+	mov	rax, arrayMsg
+	call	sprint
+	mov	rax, array
+	mov	rdi, arraySize
+	call	printArray
+	mov	rax, 0Ah
+	call	cprint
+
 	; print sizeMsg
 	mov	rax, sizeMsg 
 	call	sprint	

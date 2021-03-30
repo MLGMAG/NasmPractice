@@ -3,6 +3,7 @@ iprint:				; Print integer: iprint(eax number)
 	push    rsi             
 	push    rdx             
 	push	r10             
+	push	rcx
 	mov     rsi, 0          
  
 .divideLoop:
@@ -23,6 +24,7 @@ iprint:				; Print integer: iprint(eax number)
 	cmp     rsi, 0          
 	jnz     .printLoop       
 	
+	pop	rcx
 	pop     r10             
 	pop     rdx             
 	pop     rsi             
@@ -43,6 +45,44 @@ iprintLF:			; Print integer with line feed: iprintLF(eax number)
 	ret
 
 
+printArray:			; Print array: printArray(rax array, rdi arraySize)
+	push	rax
+	push	rdi
+	push	rcx	
+	push	rdx
+		
+	mov	rdx, rax
+	dec	rdi
+	mov	rcx, 0
+	
+	mov	rax, '['
+	call	cprint
+	
+.printElem:
+	cmp	rcx, rdi
+	jz	.finish
+	mov	rax, [rdx+rcx*8]	
+	call	iprint		
+	mov	rax, ','
+	call 	cprint
+	mov	rax, ' '
+	call	cprint
+	inc	rcx
+	jmp	.printElem
+
+.finish:
+	mov	rax, [rdx+rcx*8]
+	call	iprint
+	mov	rax, ']'
+	call	cprint
+	
+	pop	rdx
+	pop	rcx
+	pop	rdi
+	pop	rax
+	ret		
+
+
 slen:				; Calculate string length: slen(rax *string) 
 	push	rdi
 	mov	rdi, rax
@@ -56,6 +96,31 @@ slen:				; Calculate string length: slen(rax *string)
 .finish:
 	sub	rax, rdi
 	pop 	rdi
+	ret
+
+
+cprint:				; Print single character: cprint(rax symbol)
+	push	rax
+	push	rdi
+	push	rsi 
+	push	rdx
+	push	rcx
+	
+	mov	rdx, 1
+	
+	push	rax
+	mov	rsi, rsp
+	pop	rax
+	
+	mov	rdi, 1
+	mov	rax, 1
+	syscall
+
+	pop	rcx
+	pop	rdx
+	pop	rsi
+	pop	rdi
+	pop	rax
 	ret
 
 
